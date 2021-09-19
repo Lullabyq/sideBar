@@ -1,0 +1,97 @@
+@@include('parts/header.html')
+@@include('parts/icons.html')
+
+<nav class="sidebar sidebar--active">
+
+    <h2 class="sidebar__title">SideBar</h2>
+
+    <button class="burger--btn" data-status="close">
+        <span class="burger__item">Menu</span>
+    </button>
+
+    <div class="list__wrapper">
+        <ul class="sidebar__list sidebar__list--search">
+            <li class="disable-hover">
+                <svg class="icon">
+                    <use xlink: href="#search"></use>
+                </svg>
+                <form action="">
+                    <input class="search__text" type="text" placeholder="Search...">
+                    <input class="search__confirm" type="submit">
+                </form>
+                <span class="short-mode-pop">Search</span>
+
+            </li>
+        </ul>
+
+        <ul class="sidebar__list">
+            <li>
+                <svg class="icon">
+                    <use xlink: href="#home"></use>
+                </svg>
+                <a href="#">Home</a>
+                <span class="short-mode-pop">Home</span>
+            </li>
+            <li>
+                <svg class="icon">
+                    <use xlink: href="#user"></use>
+                </svg>
+                <a href="#">About</a>
+                <span class="short-mode-pop">About</span>
+            </li>
+            <li>
+                <svg class="icon">
+                    <use xlink: href="#cv"></use>
+                </svg>
+                <a href="#">Resume</a>
+                <span class="short-mode-pop">Resume</span>
+            </li>
+            <li>
+                <svg class="icon">
+                    <use xlink: href="#works"></use>
+                </svg>
+                <a href="#">Portfolio</a>
+                <span class="short-mode-pop">Portfolio</span>
+            </li>
+        </ul>
+
+        <ul class="sidebar__list sidebar__list--small">
+            <li>
+                <svg class="icon icon--small">
+                    <use xlink: href="#github"></use>
+                </svg>
+                <a href="#">GitHub</a>
+                <span class="short-mode-pop">GitHub</span>
+            </li>
+            <li>
+                <svg class="icon icon--small">
+                    <use xlink: href="#linkedin"></use>
+                </svg>
+                <a href="#">LinkedIn</a>
+                <span class="short-mode-pop">LinkedIn</span>
+            </li>
+            <li>
+                <svg class="icon icon--small">
+                    <use xlink: href="#gmail"></use>
+                </svg>
+                <a href="#">Gmail</a>
+                <span class="short-mode-pop">Gmail</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="author author__container">
+        <div class="author__photo">
+            <img src="imgs/author.jpg" alt="person">
+        </div>
+        <div class="author__name">
+            Created by <br> <span>Fedor Abrashin</span>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <h1>Home content</h1>
+</main>
+
+@@include('parts/footer.html')

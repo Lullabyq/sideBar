@@ -1,0 +1,29 @@
+$squareSide: 45px; // li h
+$smallLinkHeight: calc($squareSide / 1.25);
+
+$bigIconSide: calc($squareSide / 1.5);
+$smallIconSide: calc($squareSide / 2.2);
+
+$sidebarShort: 65px;
+$sidebarStandart: 180px;
+
+$textColor: #ccc;
+
+@mixin menu() {
+    display: block;
+    width: 27px;
+    height: 2px;
+    background-color: #ccc;
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+@mixin resetLink() {
+    text-decoration: none;
+    color: #000;
+}
+
+@mixin transition($prop) {
+    transition: $prop .5s ease;
+}
+*, *::before, *::after { box-sizing: border-box;}
