@@ -7,7 +7,10 @@ $smallIconSide: calc($squareSide / 2.2);
 $sidebarShort: 65px;
 $sidebarStandart: 180px;
 
+$borderRadius: calc($squareSide / 3);
+
 $textColor: #ccc;
+$focusColor: #668ecc;
 
 @mixin menu() {
     display: block;
@@ -19,11 +22,25 @@ $textColor: #ccc;
 }
 
 @mixin resetLink() {
-    text-decoration: none;
-    color: #000;
+    a {
+        text-decoration: none;
+        color: #000;
+    }
 }
 
 @mixin transition($prop) {
     transition: $prop .5s ease;
 }
+
 *, *::before, *::after { box-sizing: border-box;}
+
+@keyframes show {
+    0% { left: 40px;}
+
+    40% { left: calc(($sidebarShort + 5px) * 1.5);}
+
+    100% {
+        left: calc($sidebarShort + 5px);
+        opacity: 1;
+    }
+}

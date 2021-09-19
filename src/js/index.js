@@ -10,7 +10,15 @@ class NavigationMenu {
       if (action) this[action]()
     })
 
-    elem.addEventListener('pointerdown', e => e.preventDefault())
+    elem.addEventListener('pointerdown', e => {
+      let submit = elem.querySelector('.search__confirm')
+
+      if (!e.target.closest('button')
+        && (e.target != submit)
+        && (e.target.tagName != 'A')) return
+
+      e.preventDefault()
+    })
   }
 
   open() {
@@ -20,8 +28,7 @@ class NavigationMenu {
     let main = document.querySelector('main')
     main.style.left = barWidthStandart + 'px'
 
-    let search = document.querySelector('.sidebar__list--search')
-    search.firstChild.classList.toggle('disable-hover')
+    search.classList.toggle('disable-hover')
   }
 
   close() {
@@ -31,8 +38,7 @@ class NavigationMenu {
     let main = document.querySelector('main')
     main.style.left = barWidthShort + 'px'
 
-    let search = document.querySelector('.sidebar__list--search')
-    search.firstChild.classList.toggle('disable-hover')
+    search.classList.toggle('disable-hover')
   }
 }
 
@@ -42,3 +48,4 @@ let barWidthStandart = 180
 let button = document.querySelector('.burger--btn')
 let sidebar = document.querySelector('.sidebar')
 let menu = new NavigationMenu(sidebar)
+let search = document.querySelector('.sidebar--search')

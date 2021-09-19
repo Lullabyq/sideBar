@@ -9,72 +9,68 @@
         <span class="burger__item">Menu</span>
     </button>
 
+    <form class="sidebar--search sidebar__list__item disable-hover" action="">
+        <input class="search__text" type="text" placeholder="Search..." value="">
+        <input class="search__confirm" type="submit">
+        <svg class="icon">
+            <use xlink: href="#search"></use>
+        </svg>
+        <span class="short-mode-pop">Search</span>
+    </form>
+
+
     <div class="list__wrapper">
-        <ul class="sidebar__list sidebar__list--search">
-            <li class="disable-hover">
-                <svg class="icon">
-                    <use xlink: href="#search"></use>
-                </svg>
-                <form action="">
-                    <input class="search__text" type="text" placeholder="Search...">
-                    <input class="search__confirm" type="submit">
-                </form>
-                <span class="short-mode-pop">Search</span>
-
-            </li>
-        </ul>
-
         <ul class="sidebar__list">
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">Home</a>
                 <svg class="icon">
                     <use xlink: href="#home"></use>
                 </svg>
-                <a href="#">Home</a>
                 <span class="short-mode-pop">Home</span>
             </li>
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">About</a>
                 <svg class="icon">
                     <use xlink: href="#user"></use>
                 </svg>
-                <a href="#">About</a>
                 <span class="short-mode-pop">About</span>
             </li>
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">Resume</a>
                 <svg class="icon">
                     <use xlink: href="#cv"></use>
                 </svg>
-                <a href="#">Resume</a>
                 <span class="short-mode-pop">Resume</span>
             </li>
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">Portfolio</a>
                 <svg class="icon">
                     <use xlink: href="#works"></use>
                 </svg>
-                <a href="#">Portfolio</a>
                 <span class="short-mode-pop">Portfolio</span>
             </li>
         </ul>
 
         <ul class="sidebar__list sidebar__list--small">
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">GitHub</a>
                 <svg class="icon icon--small">
                     <use xlink: href="#github"></use>
                 </svg>
-                <a href="#">GitHub</a>
                 <span class="short-mode-pop">GitHub</span>
             </li>
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">LinkedIn</a>
                 <svg class="icon icon--small">
                     <use xlink: href="#linkedin"></use>
                 </svg>
-                <a href="#">LinkedIn</a>
                 <span class="short-mode-pop">LinkedIn</span>
             </li>
-            <li>
+            <li class="sidebar__list__item">
+                <a href="#">Gmail</a>
                 <svg class="icon icon--small">
                     <use xlink: href="#gmail"></use>
                 </svg>
-                <a href="#">Gmail</a>
                 <span class="short-mode-pop">Gmail</span>
             </li>
         </ul>
@@ -92,6 +88,10 @@
 
 <main>
     <h1>Home content</h1>
+    <form action="">
+        <input class="search__text" type="text" placeholder="Search..." value="slider">
+        <input class="search__confirm" type="submit">
+    </form>
 </main>
 
 @@include('parts/footer.html')
