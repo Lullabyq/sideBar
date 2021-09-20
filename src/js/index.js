@@ -3,6 +3,19 @@ class NavigationMenu {
   constructor(elem) {
     this.elem = elem
     elem.addEventListener('click', event => {
+
+      if (!document.querySelector('.sidebar--active')
+      && event.target.closest('form')) {
+
+        let form = event.target.closest('form')
+        form.classList.add('disable-transition')
+
+        this.open()
+        search.querySelector('.search__text').focus()
+
+        form.classList.remove('disable-transition')
+      }
+
       let target = event.target.closest('button')
       if (!target) return
 
@@ -11,13 +24,35 @@ class NavigationMenu {
     })
 
     elem.addEventListener('pointerdown', e => {
+
+      if (e.target.closest('li')) {
+        let link = e.target.closest('li')
+        let place = link.getBoundingClientRect()
+        let top = e.clientY
+        let left = e.clientX
+        let shiftX = place.left
+        let shiftY = place.top
+        let bubble = document.createElement('span')
+
+        bubble.className = 'bubble'
+        bubble.style.top = top - shiftY + 'px'
+        bubble.style.left = left - shiftX + 'px'
+
+        e.target.closest('li').append(bubble)
+      }
+
       let submit = elem.querySelector('.search__confirm')
 
       if (!e.target.closest('button')
-        && (e.target != submit)
-        && (e.target.tagName != 'A')) return
+      && (e.target != submit)
+      && (e.target.tagName != 'A')) return
 
       e.preventDefault()
+    })
+
+    document.addEventListener('pointerup', e => {
+      if (!elem.querySelector('.bubble')) return
+      elem.querySelector('.bubble').remove()
     })
   }
 
@@ -29,6 +64,7 @@ class NavigationMenu {
     main.style.left = barWidthStandart + 'px'
 
     search.classList.toggle('disable-hover')
+    this.toggleSearch()
   }
 
   close() {
@@ -39,6 +75,17 @@ class NavigationMenu {
     main.style.left = barWidthShort + 'px'
 
     search.classList.toggle('disable-hover')
+    this.toggleSearch()
+  }
+
+  toggleSearch() {
+    search.querySelectorAll('input').forEach(input => {
+
+      if (input.getAttribute('type') == 'submit') {
+        input.hidden = !input.hidden
+      }
+
+    })
   }
 }
 
