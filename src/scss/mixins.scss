@@ -14,6 +14,8 @@ $borderRadius: calc($squareSide / 3);
 
 $textColor: #ccc;
 $focusColor: #668ecc;
+$color-bar-bg: #3c2d3c;
+$color-main-bg: #EBE3BE;
 
 @mixin menu() {
     display: block;
