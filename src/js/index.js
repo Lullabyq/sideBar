@@ -2,6 +2,12 @@ class NavigationMenu {
 
   constructor(elem) {
     this.elem = elem
+    this.fixIcon()
+
+    window.addEventListener('resize', this.adaptSmallScreen.bind(this))
+
+    window.addEventListener('load', this.adaptSmallScreen.bind(this))
+
     elem.addEventListener('click', event => {
 
       if (!document.querySelector('.sidebar--active')
@@ -50,10 +56,7 @@ class NavigationMenu {
       e.preventDefault()
     })
 
-    document.addEventListener('pointerup', e => {
-      if (!elem.querySelector('.bubble')) return
-      elem.querySelector('.bubble').remove()
-    })
+    document.addEventListener('pointerup', this.removeBubble.bind(this))
   }
 
   open() {
@@ -86,6 +89,37 @@ class NavigationMenu {
       }
 
     })
+  }
+
+  fixIcon() {
+    let icon = this.elem.querySelector('.icon--outOfFlow')
+
+    icon.style.left = barWidthShort / 2 - icon.offsetWidth / 2 + 'px'
+  }
+
+  adaptSmallScreen() {
+    let smallIcons = this.elem.querySelectorAll('.icon--small')
+    let index = 0
+
+    if (this.checkHeight(410)) {
+      smallIcons.forEach(icon => {
+        icon.classList.add(`icon--${index++}`)
+      })
+    } else {
+      smallIcons.forEach(icon => {
+        icon.classList.remove(`icon--${index++}`)
+
+      })
+    }
+  }
+
+  removeBubble() {
+    if (!this.elem.querySelector('.bubble')) return
+      this.elem.querySelector('.bubble').remove()
+  }
+
+  checkHeight(point) {
+    return document.documentElement.clientHeight <= point
   }
 }
 

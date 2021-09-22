@@ -1,4 +1,4 @@
-body {
+html {
     padding: 0;
     margin: 0;
     background-color: #b6a6b6;
@@ -10,6 +10,7 @@ main {
     left: $sidebarStandart;
     @include transition(left);
     margin-left: 20px;
+    height: 1500px;
 }
 
 .sidebar {
@@ -43,26 +44,33 @@ main {
     .author {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: start;
 
         position: absolute;
-        bottom: 10px;
+        bottom: .625rem;
+        width: 90%;
         left: 0;
-        width: 200px;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+
+        height: 40px;
 
         color: $textColor;
+        text-align: center;
         font-size: .85em;
         letter-spacing: 0.04em;
         font-weight: 700;
+        line-height: 1.5em;
 
         &__photo {
-            margin-left: 10px;
+            width: 40px;
             height: 40px;
-            position: absolute;
-            cursor: pointer;
+            position: fixed;
+            left: calc($sidebarShort / 2 - 20px);
 
             img {
-                width: 40px;
+                width: 100%;
                 height: 100%;
                 border-radius: 40px;
             }
@@ -75,12 +83,15 @@ main {
     }
 
     .list__wrapper {
+        position: absolute;
+        top: $listTop;
+
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
         height: 64vh;
-        margin-top: 100px;
+        width: 100%;
     }
 
     .icon {
@@ -88,19 +99,19 @@ main {
         height: $bigIconSide;
 
         position: fixed;
-        left: calc($sidebarShort / 2 - $bigIconSide / 2);;
+        left: calc($sidebarShort / 2 - $bigIconSide / 2);
 
         fill: $textColor;
         transition: fill .3s linear;
 
         &--small {
-            left: calc($sidebarShort / 2 - $smallIconSide / 2);;
+            left: calc($sidebarShort / 2 - $smallIconSide / 2);
             width: $smallIconSide;
             height: $smallIconSide;
         }
     }
 
-    &__list { // ul element
+    &__list {
         padding: 0;
         margin: 0;
         list-style: none;
@@ -119,9 +130,8 @@ main {
             margin: 35px auto;
             border-radius: $borderRadius;
 
-            overflow: hidden;
+            // overflow: hidden;
             cursor: pointer;
-            transition: background-color .6s linear;
 
             span {
                 display: none;
@@ -140,16 +150,19 @@ main {
                 font-size: 20px;
             }
 
-            &:not(.disable-hover):hover {
-                background-color: $textColor;
+            &:not(.disable-hover) {
+                @include hover {
+                    background-color: $textColor;
 
-                .icon { fill: #000;}
+                    .icon { fill: #000;}
 
-                span {
-                    display: block;
-                    animation: show .7s ease .3s forwards;
+                    span {
+                        display: block;
+                        animation: show .7s ease .3s forwards;
+                    }
+
+                    .bubble { display: none;}
                 }
-
             }
 
             & a:focus {
@@ -160,10 +173,6 @@ main {
             & a:focus ~ .icon {
                 transition: none;
                 fill: $focusColor;
-            }
-
-            &:active {
-                .bubble { background-color: #000;}
             }
         }
 
@@ -176,10 +185,19 @@ main {
     }
 
     &--search {
-        $searchMarginTop: 135px;
-        margin: 135px auto 15px;
+        left:0;
+        right:0;
+
+        margin: 0 auto !important;
+        padding: 0 !important;
+
+        position: absolute !important;
+        top: $searchTop;
+
+        max-height: none !important;
 
         .search__text {
+            margin: 0;
             display: none;
             background: transparent;
             border-radius: 20px;
@@ -199,7 +217,7 @@ main {
 
         .search__confirm {
             position: absolute;
-            top: $searchMarginTop + 5px;
+            top: 5px;
             left: 10px;
             z-index: 100;
 
@@ -231,16 +249,17 @@ main {
     }
 
     .sidebar--search {
-        height: 55px;
-        margin-top: 130px;
-        & + .list__wrapper { margin-top: 95px;} //margin collapse
+        height: 3.4375rem;
+        top: calc($searchTop - 5px);
 
         .search__text {
             display: block;
-            height: 50px;
+            height: 3.125rem;
             border: 2px solid darken($textColor, 40);
 
-            &:hover { border-color: darken($textColor, 20);}
+            @media (hover: hover) {
+                &:hover { border-color: darken($textColor, 20);}
+            }
 
             &:focus {
                 transition: none;
@@ -267,18 +286,7 @@ main {
                 outline: none;
             }
 
-            .bubble {
-                display: block;
-                position: absolute;
-                z-index: 99999;
-
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-
-                background-color: darken($textColor, 25);
-                opacity: .5;
-                animation: bubbleGrowth .8s linear forwards;
-            }
+            @include createBubble();
 
             @keyframes bubbleGrowth {
                 from {
@@ -291,16 +299,17 @@ main {
                 }
             }
 
-            &:not(.disable-hover):hover {
-                box-shadow: 0px 0px 3px rgb(196, 194, 194);
+            &:not(.disable-hover) {
+                @include hover {
+                    box-shadow: 0px 0px 3px rgb(196, 194, 194);
 
-                a { color: #000;}
+                    a { color: #000;}
 
-                span { display: none;}
+                    span { display: none;}
 
-                .bubble {
-                    @extend .bubble;
-                    background-color: darken($textColor, 55);
+                    @include createBubble();
+
+                    .bubble { background-color: darken($textColor, 55);}
                 }
             }
         }
@@ -364,5 +373,115 @@ main {
 
         &::after { top: 7px;}
         &::before { top: -7px;}
+    }
+}
+
+@media (max-height: 770px) {
+    $searchTop: 110 / 980 * 100%;
+    $listTop: 160 / 770 * 100%;
+
+    .sidebar__list__item { margin: 15px auto;}
+
+    @include margin($searchTop, $listTop);
+
+    .sidebar .author { color: darken($textColor, 20);}
+
+    .bubble {display: none !important;}
+}
+
+@media (max-height: 580px) {
+    $searchTop: 55 / 580 * 100%;
+    $listTop: 110 / 580 * 100%;
+
+    html { font-size: 14px;}
+
+    @include margin($searchTop, $listTop, 14 / 16 * 5px);
+}
+
+@media (max-height: 500px) {
+    $searchTop: 45px;
+    $listTop: 80px;
+
+    html { font-size: 11px;}
+
+    @include margin($searchTop, $listTop, 11 / 16 * 5px);
+
+    .sidebar {
+
+        &__list__item { margin: 10px auto;}
+
+        .author {
+            bottom: 0px;
+
+            &__photo {
+                width: 20px ;
+                height: 20px;
+                left: calc($sidebarShort / 2 - 10px);
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-height: 410px) {
+
+    .sidebar {
+        .list__wrapper {
+            position: absolute;
+            bottom: 42px;
+            z-index: 99;
+            margin-top: 10px;
+            height: auto;
+        }
+
+        &__list {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+            height: 80%;
+
+            &__item {
+                flex-grow: 1;
+                margin-top: 0;
+                margin-bottom: 0;
+                padding-top: 2px;
+                padding-bottom: 2px;
+                max-height: 35px;
+                min-height: 26px;
+            }
+
+            &--small {
+                flex-direction: row;
+                margin-top: 5px;
+                height: auto;
+
+                .sidebar__list__item {
+                    position: relative;
+                    overflow: hidden;
+
+                    visibility: hidden;
+                    opacity: 0;
+
+                    margin: 4px 8px 4px 10px;
+                    height: 100% !important;
+                }
+            }
+        }
+
+        &--active {
+            .sidebar__list--small .sidebar__list__item {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity .8s ease;
+            }
+
+            @include positionIcon(3);
+        }
     }
 }

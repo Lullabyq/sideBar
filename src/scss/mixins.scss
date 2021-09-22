@@ -1,4 +1,4 @@
-$squareSide: 45px; // li h
+$squareSide: 2.8125rem; // li h
 $smallLinkHeight: calc($squareSide / 1.25);
 
 $bigIconSide: calc($squareSide / 1.5);
@@ -6,6 +6,9 @@ $smallIconSide: calc($squareSide / 2.2);
 
 $sidebarShort: 65px;
 $sidebarStandart: 180px;
+
+$searchTop: 110 / 980 * 100%;
+$listTop: 285 / 980 * 100%;
 
 $borderRadius: calc($squareSide / 3);
 
@@ -19,6 +22,21 @@ $focusColor: #668ecc;
     background-color: #ccc;
     margin: 0 auto;
     border-radius: 2px;
+}
+
+@mixin createBubble() {
+    .bubble {
+        display: block;
+        position: absolute;
+        z-index: 99999;
+
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+
+        background-color: darken($textColor, 25);
+        opacity: .5;
+        animation: bubbleGrowth .8s linear forwards;
+    }
 }
 
 @mixin resetLink() {
@@ -42,5 +60,35 @@ $focusColor: #668ecc;
     100% {
         left: calc($sidebarShort + 5px);
         opacity: 1;
+    }
+}
+
+@mixin margin($searchTop, $listTop, $offset: 5px) {
+    .sidebar {
+        &--search { top: $searchTop;}
+
+        & .list__wrapper { top: $listTop;}
+
+        &--active {
+            .sidebar--search { top: calc($searchTop - $offset);}
+        }
+    }
+}
+
+@mixin positionIcon($amount) {
+    @for $i from 0 to $amount {
+        .icon--#{$i} {
+            left: $sidebarStandart / $amount * ($i + .5) - 5px;
+        }
+    }
+}
+
+@mixin hover() {
+    @media (hover: none) {
+        &:active { @content;}
+    }
+
+    @media (hover: hover) {
+        &:hover { @content;}
     }
 }
