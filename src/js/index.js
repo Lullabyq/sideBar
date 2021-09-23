@@ -63,6 +63,20 @@ class NavigationMenu {
       e.preventDefault()
     })
 
+    document.addEventListener('touchstart', evt => {
+      let touch = evt.touches[0]
+      this.swipeStart = touch.clientX
+    })
+
+    elem.addEventListener('touchend', evt => {
+      let tap = evt.changedTouches[0]
+      this.swipeEnd = tap.clientX
+
+      let swipe = this.processSwipe()
+
+      if (swipe.isLong && swipe.isProper) this[swipe.action]()
+    })
+
     document.addEventListener('pointerup', this.removeBubble.bind(this))
   }
 
@@ -190,6 +204,27 @@ class NavigationMenu {
     } else if (html.classList.contains('stop__scroll')) {
       html.classList.remove('stop__scroll')
     }
+  }
+
+  processSwipe() {
+    let swipeInfo = {}
+
+    swipeInfo.length = this.swipeEnd - this.swipeStart
+
+    console.log(swipeInfo.length);
+
+    swipeInfo.action = this.classes.contains('sidebar--active') ? 'close' : 'open'
+
+    if ((swipeInfo.length < 0 && swipeInfo.action == 'close')
+    || (swipeInfo.length > 0 && swipeInfo.action == 'open')) {
+      swipeInfo.isProper = true
+    } else {
+      swipeInfo.isProper = false
+    }
+
+    swipeInfo.isLong = Math.abs(swipeInfo.length) > 80
+
+    return swipeInfo
   }
 
 }

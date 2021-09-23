@@ -1,20 +1,29 @@
 html {
     padding: 0;
-    padding-top: 10px;
     margin: 0;
     background-color: $color-main-bg;
     font-size: 16px;
+}
+
+body {
+    margin: 0;
 }
 
 .stop__scroll { overflow: hidden;}
 
 main {
     position: absolute;
-    left: $sidebarStandart;
+    left: $sidebarShort;
     @include transition(left);
-    margin-left: 20px;
+
     height: 3500px;
+    width: calc(100% - $sidebarShort);
+    padding: 20px 20px 0;
 }
+
+.sidebar--active ~ main { width: calc(100% - $sidebarStandart);}
+
+.sidebar--folded ~ main { width: 100%;}
 
 .sidebar {
     position: fixed;
@@ -492,12 +501,6 @@ main {
 }
 
 @media (max-width: 690px) {
-
-    main {
-        width: 100%;
-        margin: 0;
-        padding-left: 10px;
-    }
 
     .sidebar {
         width: 65px;
