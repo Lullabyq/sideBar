@@ -9,6 +9,7 @@ class NavigationMenu {
     this.classes = this.elem.classList
 
     this.fixIcon()
+    this.close()
 
     window.addEventListener('resize', this.adaptSmallScreen.bind(this))
 
@@ -77,6 +78,9 @@ class NavigationMenu {
 
     this.search.classList.toggle('disable-hover')
     this.toggleSearch()
+
+    this.tabOptimize()
+    this.stopScroll()
   }
 
   close() {
@@ -90,6 +94,9 @@ class NavigationMenu {
 
     this.search.classList.toggle('disable-hover')
     this.toggleSearch()
+
+    this.tabOptimize()
+    this.stopScroll()
   }
 
   toggleSearch() {
@@ -134,6 +141,8 @@ class NavigationMenu {
       this.classes.remove('sidebar--folded')
       this.adjustMain()
     }
+
+    this.stopScroll()
   }
 
   removeBubble() {
@@ -162,9 +171,28 @@ class NavigationMenu {
     }
   }
 
+  tabOptimize() {
+    let loupe = this.elem.querySelector('.icon--outOfFlow')
+
+    if (!this.classes.contains('sidebar--active')) {
+      loupe.setAttribute('tabindex', '2')
+    } else {
+      loupe.removeAttribute('tabindex')
+    }
+  }
+
+  stopScroll() {
+    let html = document.documentElement
+
+    if (this.classes.contains('jsSmallScreen')
+    && this.classes.contains('sidebar--active')) {
+      html.classList.add('stop__scroll')
+    } else if (html.classList.contains('stop__scroll')) {
+      html.classList.remove('stop__scroll')
+    }
+  }
+
 }
 
 let sidebar = document.querySelector('.sidebar')
 let menu = new NavigationMenu(sidebar)
-
-menu.close()
