@@ -7,9 +7,7 @@ class NavigationMenu {
     this.widthShort = 65
     this.widthStandart = 180
     this.classes = this.elem.classList
-
     this.fixIcon()
-    this.close()
 
     window.addEventListener('resize', this.adaptSmallScreen.bind(this))
 
