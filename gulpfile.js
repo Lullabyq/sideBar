@@ -19,12 +19,12 @@ const uglify = uglifyEs.default
 
 function browsersync() {
     sync.init({
-        server: { baseDir: 'dist/'},
+        server: { baseDir: 'docs/'},
     })
 
-    watch('src/**.html', series(html)).on('change', sync.reload)
-    watch('src/scss/**.scss', series(css)).on('change', sync.reload)
-    watch('src/js/**.js', series(scripts)).on('change', sync.reload)
+    watch('src/**/*.html', series(html)).on('change', sync.reload)
+    watch('src/scss/**/*.scss', series(css)).on('change', sync.reload)
+    watch('src/js/**/*.js', series(scripts)).on('change', sync.reload)
 }
 
 function html() {
@@ -35,7 +35,7 @@ function html() {
     .pipe(htmlmin({
         collapseWhitespace: true
     }))
-    .pipe(dest('dist'))
+    .pipe(dest('docs'))
 }
 
 function css() {
@@ -48,20 +48,20 @@ function css() {
         .pipe(autoprefixer({
             cascade: false
         }))
-        .pipe(dest('dist/css'))
+        .pipe(dest('docs/css'))
 }
 
 function scripts() {
     return src('src/js/index.js')
     .pipe(concat('index.min.js'))
     .pipe(uglify()) // compress js
-    .pipe(dest('dist/js'))
+    .pipe(dest('docs/js'))
 }
 
 export function images() {
     return src('src/imgs/**/*')
         .pipe(imagemin({verbose: true}))
-        .pipe(dest('dist/imgs'))
+        .pipe(dest('docs/imgs'))
 }
 
 
@@ -69,9 +69,9 @@ function move() {
     return src([
         'app/fonts/**/*',
     ])
-    .pipe(dest('dist/fonts'))
+    .pipe(dest('docs/fonts'))
 }
 
-export const clear = () => del('dist/**')
+export const clear = () => del('docs/**')
 export const build = series(clear, css, html, scripts, images, move)
 export default series(clear, css, html, scripts, images, move, browsersync)

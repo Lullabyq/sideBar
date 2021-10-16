@@ -52,6 +52,9 @@ class NavigationMenu {
         bubble.style.left = left - shiftX + 'px'
 
         e.target.closest('li').append(bubble)
+
+        let hyperLink = link.querySelector('A').getAttribute('href')
+        window.location = hyperLink
       }
 
       let submit = elem.querySelector('.search__confirm')
@@ -61,7 +64,7 @@ class NavigationMenu {
       && (e.target.tagName != 'A')) return
 
       e.preventDefault()
-    })
+  })
 
     document.addEventListener('touchstart', evt => {
       let touch = evt.touches[0]
@@ -84,7 +87,6 @@ class NavigationMenu {
     this.classes.add('sidebar--active')
     this.burger.dataset.status = 'close'
     this.adjustMain()
-
 
     if (this.classes.contains('jsSmallScreen')) {
       this.classes.remove('sidebar--folded')
@@ -210,8 +212,6 @@ class NavigationMenu {
     let swipeInfo = {}
 
     swipeInfo.length = this.swipeEnd - this.swipeStart
-
-    console.log(swipeInfo.length);
 
     swipeInfo.action = this.classes.contains('sidebar--active') ? 'close' : 'open'
 
